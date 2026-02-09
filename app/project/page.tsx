@@ -1,17 +1,13 @@
 export default function AboutPage() {
   return (
     <div className="max-w-4xl mx-auto space-y-6">
-      <h1 className="text-3xl font-bold">About Us</h1>
+      <h1 className="text-3xl font-bold">Projecten</h1>
       <p className="text-gray-700">
-        We are a company dedicated to providing the best solutions for your needs. 
-        Our team is passionate about creating modern, scalable, and user-friendly applications.
+      Als ontwerper en fotograaf zoek ik altijd naar de essentie van een verhaal, of dat nu gevangen zit in de felle neonlichten van een filmfestival, de rauwe actie op een sportveld, of de persoonlijke reflecties in een handgemaakt boek. In mijn werk combineer ik visuele strategie met een scherp oog voor sfeer en detail om concepten tot leven te brengen die blijven hangen.
       </p>
-      <ul className="list-disc pl-5 text-gray-700 space-y-2">
-        <li>Innovative technology</li>
-        <li>Professional team</li>
-        <li>Customer satisfaction</li>
-      </ul>
-      <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Assumenda nulla iusto illo sed recusandae repudiandae odio maxime fuga minima ipsa necessitatibus rem pariatur nostrum et quisquam minus autem excepturi harum, architecto ad quibusdam itaque officia? Aperiam animi minima enim placeat vel fuga quam sunt facere quae, incidunt necessitatibus totam ipsum.</p>
+     <a href="/project_1" className="hover:underline">CineCity Filmfestival</a> <br></br>
+     <a href="/project_2" className="hover:underline">Cockerill Beach Antwerp</a><br></br>
+     <a href="/project_3" className="hover:underline">Hoe zie jij mij? </a><br></br>
     </div>
   )
 }
