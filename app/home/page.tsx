@@ -10,10 +10,10 @@ export default function HomePage() {
   const [mounted, setMounted] = useState(false);
 
   const floatingImages = [
-    { id: 1, src: "/home/foto1.jpg", top: "10%", left: "8%", size: "w-56 h-72", speed: 0.015, delay: "0s" },
-    { id: 2, src: "/home/foto2.jpg", top: "55%", left: "5%", size: "w-72 h-48", speed: -0.02, delay: "1.5s" },
-    { id: 3, src: "/home/foto3.jpg", top: "15%", left: "72%", size: "w-64 h-80", speed: 0.01, delay: "0.5s" },
-    { id: 4, src: "/home/foto4.jpg", top: "62%", left: "78%", size: "w-48 h-64", speed: -0.015, delay: "2s" },
+    { id: 1, src: "/home/foto1.webp", top: "10%", left: "8%", size: "w-56 h-72", speed: 0.015, delay: "0s" },
+    { id: 2, src: "/home/foto2.webp", top: "55%", left: "5%", size: "w-72 h-48", speed: -0.02, delay: "1.5s" },
+    { id: 3, src: "/home/foto3.webp", top: "15%", left: "72%", size: "w-64 h-80", speed: 0.01, delay: "0.5s" },
+    { id: 4, src: "/home/foto4.webp", top: "62%", left: "78%", size: "w-48 h-64", speed: -0.015, delay: "2s" },
   ];
 
   useEffect(() => {

@@ -10,11 +10,11 @@ export default function AboutPage() {
 
   // Hier koppel je de afbeeldingen aan de grid items
   const gridItems = [
-    { id: 1, size: "md:col-span-2 md:row-span-2", img: "/projects/fermette/img1.jpg" },
-    { id: 2, size: "md:col-span-1 md:row-span-1", img: "/projects/fermette/img2.jpg" },
-    { id: 3, size: "md:col-span-1 md:row-span-2", img: "/projects/fermette/img3.jpg" },
-    { id: 4, size: "md:col-span-2 md:row-span-1", img: "/projects/fermette/img4.jpg" },
-    { id: 5, size: "md:col-span-3 md:row-span-1", img: "/projects/fermette/img5.jpg" },
+    { id: 1, size: "md:col-span-2 md:row-span-2", img: "/projects/fermette/img1.webp" },
+    { id: 2, size: "md:col-span-1 md:row-span-1", img: "/projects/fermette/img2.webp" },
+    { id: 3, size: "md:col-span-1 md:row-span-2", img: "/projects/fermette/img3.webp" },
+    { id: 4, size: "md:col-span-2 md:row-span-1", img: "/projects/fermette/img4.webp" },
+    { id: 5, size: "md:col-span-3 md:row-span-1", img: "/projects/fermette/img5.webp" },
   ];
 
   // Zoek de data van de geselecteerde afbeelding voor de lightbox

@@ -38,7 +38,7 @@ export default function AboutPage() {
             className="lg:col-span-5 aspect-4/5 bg-zinc-100 rounded-[3rem] overflow-hidden relative group"
           >
             {/* Zodra je een foto hebt, vervang je de 'src' hieronder */}
-           <img src="/img1.jpg" className="w-full h-full object-cover" alt="Portret" />
+           <img src="/img1.webp" className="w-full h-full object-cover" alt="Portret" />
           </motion.div>
 
           {/* TEKST: VOORSTELLEN */}
