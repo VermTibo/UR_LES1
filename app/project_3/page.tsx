@@ -20,7 +20,7 @@ export default function AboutPage() {
       {/* HEADER SECTIE */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-end">
         <div className="space-y-4">
-          <h1 className="text-6xl md:text-8xl font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-b from-red to-red-500 uppercase">
+          <h1 className="text-6xl md:text-8xl font-black tracking-tighter text-transparent bg-clip-text bg-linear-to-b from-red to-red-500 uppercase">
             Hoe zie jij mij?
           </h1>
           <div className="flex flex-col md:flex-row md:items-center gap-2 md:gap-6">
@@ -28,7 +28,7 @@ export default function AboutPage() {
               Reflecties | Leporello
             </h2>
             <div className="flex items-center gap-2">
-              <span className="h-[1px] w-8 bg-zinc-700 hidden md:block"></span>
+              <span className="h-px w-8 bg-zinc-700 hidden md:block"></span>
               <p className="text-sm font-light tracking-widest text-zinc-500 italic">
                 Focus: Persoonlijk, redactioneel en kwetsbaar
               </p>
@@ -57,7 +57,7 @@ export default function AboutPage() {
               </span>
             </div>
 
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-8">
+            <div className="absolute inset-0 bg-linear-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-8">
             </div>
           </div>
         ))}
@@ -66,7 +66,7 @@ export default function AboutPage() {
       {/* LIGHTBOX MODAL */}
       {selectedImg !== null && (
         <div 
-          className="fixed inset-0 z-[100] flex items-center justify-center  backdrop-blur-xl p-4 md:p-12"
+          className="fixed inset-0 z-100 flex items-center justify-center  backdrop-blur-xl p-4 md:p-12"
           onClick={() => setSelectedImg(null)}
         >
           <button className="absolute top-8 right-8 text-white/50 hover:text-white transition-colors z-50">
@@ -81,7 +81,7 @@ export default function AboutPage() {
                 <h3 className="text-4xl md:text-6xl font-black uppercase tracking-tighter text-white/20">
                     Image {selectedImg}
                 </h3>
-                <div className="w-12 h-[2px] bg-cyan-500 mx-auto"></div>
+                <div className="w-12 h-0.5 bg-cyan-500 mx-auto"></div>
                 <p className="text-zinc-500 font-mono text-xs tracking-widest uppercase">Project Preview Mode</p>
              </div>
           </div>

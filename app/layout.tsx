@@ -5,7 +5,23 @@ import Footer from "@/components/Footer"
 import Script from "next/script"
 import GoogleAnalyticsTracker from "@/components/GoogleAnalyticsTracker"
 
+// 1. Importeer de juiste fonts (Let op: Plus_Jakarta_Sans ipv Momo_Trust_Display)
+import {Momo_Trust_Display, JetBrains_Mono } from 'next/font/google'
+
 import "./globals.css"
+
+// 2. Configureer de fonts met verplichte weight
+const Momo = Momo_Trust_Display({
+  subsets: ['latin'],
+  variable: '--font-sans',
+  weight: ['400'], 
+})
+
+const jetbrains = JetBrains_Mono({
+  subsets: ['latin'],
+  variable: '--font-mono',
+  weight: ['400', '700'], // DEZE ONTBRAK NOG
+})
 
 export const metadata = {
   title: "Create Next App",
@@ -18,7 +34,8 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
+    // 3. Gebruik de juiste variabele namen hier
+    <html lang="en" className={`${Momo.variable} ${jetbrains.variable}`}>
       <head>
         <Script
           src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID}`}
@@ -34,10 +51,8 @@ export default function RootLayout({
         </Script>
       </head>
 
-      <body>
-        {/* Google Analytics page view tracker */}
+      <body className="font-sans">
         <GoogleAnalyticsTracker />
-
         <GlobalNavbar />
 
         <div className="p-20 mx-auto mt-10">

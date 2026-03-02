@@ -1,117 +1,77 @@
 "use client"
 
-import * as React from "react"
-import { useForm } from "react-hook-form"
-import { z } from "zod"
-import { zodResolver } from "@hookform/resolvers/zod"
+import React from "react"
+import Link from "next/link"
+import { motion } from "framer-motion"
 
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Label } from "@/components/ui/label"
-
-
-import { toast } from "@/components/ui/toast"
-// Success example
-toast.success("Logged in successfully!")
-
-// Error example
-toast.error("Something went wrong")
-
-
-/* ---------------- SCHEMA ---------------- */
-
-const contactSchema = z.object({
-  name: z.string().min(2, "Name must be at least 2 characters"),
-  email: z.string().email("Invalid email address"),
-  subject: z.string().min(3, "Subject is required"),
-  message: z.string().min(10, "Message must be at least 10 characters"),
-})
-
-type ContactFormValues = z.infer<typeof contactSchema>
-
-/* ---------------- COMPONENT ---------------- */
-
-export default function ContactForm() {
-  const [loading, setLoading] = React.useState(false)
-
-  const form = useForm<ContactFormValues>({
-    resolver: zodResolver(contactSchema),
-    defaultValues: {
-      name: "",
-      email: "",
-      subject: "",
-      message: "",
-    },
-  })
-
-  async function onSubmit(_: ContactFormValues) {
-    setLoading(true)
-    await new Promise((r) => setTimeout(r, 1200))
-    setLoading(false)
-    alert("Message sent (mock)")
-    form.reset()
-  }
-
+export default function ContactPage() {
   return (
-    <main className="flex items-center justify-center bg-background p-4">
-      <Card className="w-full max-w-lg">
-        <CardHeader>
-          <CardTitle>Contact Us</CardTitle>
-          <CardDescription>
-            Send us a message and we’ll get back to you
-          </CardDescription>
-        </CardHeader>
+    <div className="bg-white min-h-screen text-black selection:bg-[#36558F] selection:text-white font-sans">
+      <main className="max-w-6xl mx-auto px-6 py-24 md:py-40">
+        
+        <div className="mb-20">
+          <motion.p 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="text-[#36558F] font-bold tracking-[0.4em] uppercase text-[10px] mb-4"
+          >
+          </motion.p>
+          <motion.h1 
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="text-7xl md:text-[9rem] text-[#36558F] tracking-tighter leading-[0.8] uppercase"
+          >
+            Laten We <br /> Praten.
+          </motion.h1>
+        </div>
 
-        <CardContent>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
+          <div className="lg:col-span-5 space-y-12">
+            <p className="text-2xl text-zinc-500 leading-tight font-medium">
+              Heb je een project in gedachten?
+            </p>
             <div className="space-y-2">
-              <Label>Name</Label>
-              <Input {...form.register("name")} />
-              {form.formState.errors.name && (
-                <p className="text-sm text-red-500">
-                  {form.formState.errors.name.message}
-                </p>
-              )}
+              <h3 className="text-[10px] font-black uppercase tracking-widest text-[#36558F]">Email</h3>
+              <a href="mailto:hallo@jouwmail.com" className="text-2xl font-bold hover:text-[#36558F] transition-colors">
+                tibovermeersch0609@gmail.com
+              </a>
             </div>
+          </div>
 
-            <div className="space-y-2">
-              <Label>Email</Label>
-              <Input type="email" {...form.register("email")} />
-              {form.formState.errors.email && (
-                <p className="text-sm text-red-500">
-                  {form.formState.errors.email.message}
-                </p>
-              )}
-            </div>
+          <motion.div 
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            className="lg:col-span-7 bg-zinc-50 p-8 md:p-12 rounded-[3rem] border border-zinc-100"
+          >
+            <form className="space-y-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div className="space-y-2">
+                  <label className="text-[10px] font-black uppercase tracking-widest ml-4">Naam</label>
+                  <input type="text" placeholder="Je naam" className="w-full bg-white border-none rounded-full px-8 py-5 outline-none focus:ring-2 focus:ring-[#36558F]" />
+                </div>
+                <div className="space-y-2">
+                  <label className="text-[10px] font-black uppercase tracking-widest ml-4">Email</label>
+                  <input type="email" placeholder="Email adres" className="w-full bg-white border-none rounded-full px-8 py-5 outline-none focus:ring-2 focus:ring-[#36558F]" />
+                </div>
+              </div>
+              <div className="space-y-2">
+                <label className="text-[10px] font-black uppercase tracking-widest ml-4">Bericht</label>
+                <textarea rows={4} placeholder="Wat kan ik voor je doen?" className="w-full bg-white border-none rounded-[2rem] px-8 py-6 outline-none focus:ring-2 focus:ring-[#36558F] resize-none"></textarea>
+              </div>
+              <button type="submit" className="w-full bg-black text-white font-black uppercase text-xs tracking-[0.3em] py-6 rounded-full hover:bg-[#36558F] transition-all flex items-center justify-center gap-4">
+                Verstuur Bericht
+              </button>
+            </form>
+          </motion.div>
+        </div>
 
-            <div className="space-y-2">
-              <Label>Subject</Label>
-              <Input {...form.register("subject")} />
-              {form.formState.errors.subject && (
-                <p className="text-sm text-red-500">
-                  {form.formState.errors.subject.message}
-                </p>
-              )}
-            </div>
+        <footer className="flex justify-center pt-24">
+          <Link href="/home" className="group flex items-center gap-4 bg-zinc-100 text-black px-10 py-5 rounded-full hover:bg-black hover:text-white transition-all">
+            <span className="text-xs font-black uppercase tracking-[0.3em]">Terug</span>
+          </Link>
+        </footer>
 
-            <div className="space-y-2">
-              <Label>Message</Label>
-              <Textarea rows={5} {...form.register("message")} />
-              {form.formState.errors.message && (
-                <p className="text-sm text-red-500">
-                  {form.formState.errors.message.message}
-                </p>
-              )}
-            </div>
-
-            <Button className="w-full" disabled={loading}>
-              {loading ? "Sending..." : "Send Message"}
-            </Button>
-          </form>
-        </CardContent>
-      </Card>
-    </main>
+      </main>
+    </div>
   )
 }

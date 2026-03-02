@@ -7,7 +7,7 @@ export default function Footer() {
   return (
     <footer className="w-full bg-gray-100 text-center py-4 text-sm text-gray-600">
       <div className="mb-2">
-        &copy; {currentYear} Your Company. All rights reserved.
+        &copy; {currentYear} vermtibo.be. All rights reserved.
       </div>
       <div className="flex justify-center space-x-4">
         <Link href="/terms-of-agreement" className="underline hover:text-gray-800">

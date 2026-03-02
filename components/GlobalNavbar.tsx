@@ -3,7 +3,7 @@
 import { useState } from "react"
 import SidebarSlider from "@/components/SidebarSlider"
 import { GiHamburgerMenu } from "react-icons/gi"
-import { FiChevronDown } from "react-icons/fi"
+import { FiChevronDown, FiUser, FiSettings } from "react-icons/fi"
 
 export default function GlobalNavbar() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
@@ -27,51 +27,55 @@ export default function GlobalNavbar() {
           setIsProjectOpen(false)
         }}
       >
-        <nav className="flex flex-col space-y-4 text-lg">
+        {/* We gebruiken h-full en flex-col om de items te verspreiden */}
+        <nav className="flex flex-col h-full text-lg">
+          
+          {/* Bovenste sectie: Hoofdmenu */}
+          <div className="grow space-y-4">
+            <a href="/home" className="block hover:underline">Home</a>
+            <a href="/about" className="block hover:underline">About</a>
 
-          <a href="/home" className="hover:underline">Home</a>
-          <a href="/about" className="hover:underline">About</a>
+            {/* Project with subnavigation */}
+            <div>
+              <button
+                onClick={() => setIsProjectOpen(!isProjectOpen)}
+                className="flex items-center justify-between w-full hover:underline"
+              >
+                Project
+                <FiChevronDown
+                  className={`transition-transform ${
+                    isProjectOpen ? "rotate-180" : ""
+                  }`}
+                />
+              </button>
 
-          {/* Project with subnavigation */}
-          <div>
-            <button
-              onClick={() => setIsProjectOpen(!isProjectOpen)}
-              className="flex items-center justify-between w-full hover:underline"
-            >
-              Project
-              <FiChevronDown
-                className={`transition-transform ${
-                  isProjectOpen ? "rotate-180" : ""
-                }`}
-              />
-            </button>
+              {isProjectOpen && (
+                <div className="mt-3 ml-4 flex flex-col space-y-2 text-base italic">
+                  <a href="/project_1" className="hover:underline">CineCity</a>
+                  <a href="/project_2" className="hover:underline">De Fermette</a>
+                  <a href="/project_3" className="hover:underline">Hoe zie jij mij</a>
+                </div>
+              )}
+            </div>
 
-            {isProjectOpen && (
-              <div className="mt-3 ml-4 flex flex-col space-y-2 text-base">
-                <a
-                  href="/project_1"
-                  className="hover:underline"
-                >
-                  CineCity
-                </a>
-                <a
-                  href="/project_2"
-                  className="hover:underline"
-                >
-                  Beachvolleyball
-                </a>
-                <a
-                  href="/project_3"
-                  className="hover:underline"
-                >
-                  Hoe zie jij mij
-                </a>
-              </div>
-            )}
+            <a href="/contact" className="block hover:underline">Contact</a>
           </div>
 
-          <a href="/contact" className="hover:underline">Contact</a>
-          <a href="/login" className="hover:underline">Login</a>
+          {/* Onderste sectie: Admin & User naast elkaar */}
+          <div className="border-t border-zinc-100 pt-6 mt-6 flex items-center gap-4">
+            <a 
+              href="/admin" 
+              className="flex-1 flex items-center justify-center gap-2 px-4 py-3 bg-zinc-50 rounded-2xl text-xs font-black uppercase tracking-widest hover:bg-[#36558F] hover:text-white transition-all"
+            >
+              <FiSettings /> Admin
+            </a>
+            <a 
+              href="/user" 
+              className="flex-1 flex items-center justify-center gap-2 px-4 py-3 bg-zinc-900 text-white rounded-2xl text-xs font-black uppercase tracking-widest hover:bg-[#36558F] transition-all shadow-lg shadow-zinc-200"
+            >
+              <FiUser /> User
+            </a>
+          </div>
 
         </nav>
       </SidebarSlider>
