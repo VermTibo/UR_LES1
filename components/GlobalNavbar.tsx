@@ -19,7 +19,7 @@ export default function GlobalNavbar() {
         href={surveyLink}
         target="_blank"
         rel="noopener noreferrer"
-        className="fixed bottom-8 right-8 z-[100] flex items-center gap-3 px-6 py-4 bg-[#36558F] text-white rounded-full shadow-2xl hover:scale-110 hover:bg-orange-500 transition-all duration-300 group animate-bounce-slow"
+        className="fixed bottom-8 right-8 z-100 flex items-center gap-3 px-6 py-4 bg-[#36558F] text-white rounded-full shadow-2xl hover:scale-110 hover:bg-orange-500 transition-all duration-300 group animate-bounce-slow"
       >
         <FiEdit3 className="group-hover:rotate-12 transition-transform" size={20} />
         <span className="text-[10px] font-black uppercase tracking-[0.2em]">Gebruiksvriendelijkheid ENQUETE</span>
