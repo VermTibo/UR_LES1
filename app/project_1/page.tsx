@@ -28,7 +28,7 @@ export default function CineCityFinal() {
       <motion.div 
         initial={{ x: 100 }}
         animate={{ x: 0 }}
-        className="fixed right-0 top-1/2 -translate-y-1/2 z-[120] hidden lg:flex items-center"
+        className="fixed right-0 top-1/2 -translate-y-1/2 z-120 hidden lg:flex items-center"
       >
         <a 
           href={layoutSurveyLink} 
@@ -66,7 +66,7 @@ export default function CineCityFinal() {
       {/* 3. STYLE SWITCHER (Responsive Position) */}
       <button 
         onClick={() => setIsAltVersion(!isAltVersion)}
-        className="fixed top-6 right-6 md:top-8 md:right-8 z-[110] flex items-center gap-2 md:gap-3 px-4 py-2.5 md:px-6 md:py-3 bg-white/80 backdrop-blur-md border border-zinc-200 shadow-xl rounded-full hover:border-zinc-900 transition-all active:scale-95 group"
+        className="fixed top-6 right-6 md:top-8 md:right-8 z-110 flex items-center gap-2 md:gap-3 px-4 py-2.5 md:px-6 md:py-3 bg-white/80 backdrop-blur-md border border-zinc-200 shadow-xl rounded-full hover:border-zinc-900 transition-all active:scale-95 group"
       >
         <FiRepeat className={`text-sm md:text-base transition-transform duration-500 group-hover:rotate-180 ${isAltVersion ? 'text-orange-500' : 'text-blue-600'}`} />
         <span className="text-[8px] md:text-[10px] font-black uppercase tracking-widest">Toggle Identity</span>
@@ -80,7 +80,7 @@ export default function CineCityFinal() {
             className={`
               /* Responsive Font Sizing */
               text-[15vw] md:text-[clamp(5rem,9vw,10rem)] 
-              leading-[0.85] font-black uppercase tracking-tighter text-transparent bg-clip-text bg-gradient-to-r 
+              leading-[0.85] font-black uppercase tracking-tighter text-transparent bg-clip-text bg-linear-to-r 
               ${isAltVersion ? 'from-orange-600 via-rose-500 to-amber-500 italic' : 'from-blue-600 via-cyan-500 to-indigo-600'}
             `}
           >
@@ -180,10 +180,10 @@ export default function CineCityFinal() {
         {selectedImg !== null && (
           <motion.div 
             initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[200] flex items-center justify-center bg-white/98 backdrop-blur-2xl p-4 md:p-6"
+            className="fixed inset-0 z-200 flex items-center justify-center bg-white/98 backdrop-blur-2xl p-4 md:p-6"
             onClick={() => setSelectedImg(null)}
           >
-            <button className="absolute top-6 right-6 md:top-10 md:right-10 text-black hover:scale-110 transition-transform z-[210] p-2 bg-zinc-100 rounded-full md:bg-transparent">
+            <button className="absolute top-6 right-6 md:top-10 md:right-10 text-black hover:scale-110 transition-transform z-210 p-2 bg-zinc-100 rounded-full md:bg-transparent">
               <FiX size={24} className="md:w-10 md:h-10" />
             </button>
             <motion.div

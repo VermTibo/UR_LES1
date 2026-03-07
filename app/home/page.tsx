@@ -67,7 +67,7 @@ export default function HomePage() {
   if (!mounted) return <div className="h-screen bg-white" />;
 
   return (
-    <main className={`h-[100dvh] w-full bg-white text-black overflow-hidden relative flex flex-col justify-center items-center select-none ${!isMobile ? 'cursor-none' : ''}`}>
+    <main className={`h-dvh w-full bg-white text-black overflow-hidden relative flex flex-col justify-center items-center select-none ${!isMobile ? 'cursor-none' : ''}`}>
       
       <style jsx global>{`
         @keyframes float {
@@ -139,7 +139,7 @@ export default function HomePage() {
           </h1>
         </div>
 
-        <p className="max-w-[260px] md:max-w-xl text-zinc-400 text-xs md:text-lg font-medium italic mb-10 leading-relaxed">
+        <p className="max-w-65 md:max-w-xl text-zinc-400 text-xs md:text-lg font-medium italic mb-10 leading-relaxed">
           Grafisch Vormgever met <br className="hidden md:block" />
           een passie voor fotografie.
         </p>
@@ -167,7 +167,7 @@ export default function HomePage() {
       </div>
 
       {/* NOISE OVERLAY */}
-      <div className="pointer-events-none fixed inset-0 z-[60] opacity-[0.02] mix-blend-multiply" 
+      <div className="pointer-events-none fixed inset-0 z-60 opacity-[0.02] mix-blend-multiply" 
            style={{ backgroundImage: `url("https://grainy-gradients.vercel.app/noise.svg")` }}></div>
     </main>
   )
