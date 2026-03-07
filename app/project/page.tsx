@@ -10,19 +10,19 @@ export default function ProjectsOverview() {
       id: "project_1", // Komt overeen met de mapnaam in 'app'
       title: "CineCity Filmfestival",
       category: "Visuele Identiteit",
-      image: "/projects/cinecity/img1.jpg", 
+      image: "/projects/cinecity/img1.webp", 
     },
     {
       id: "project_2", 
       title: "De Fermette",
       category: "Fotografie",
-      image: "/projects/fermette/img2.jpg", 
+      image: "/projects/fermette/img2.webp", 
     },
     {
       id: "project_3", 
-      title: "Hoe zie jij mij?",
-      category: "Grafisch Ontwerp",
-      image: "/projects/hoeziejijmij/thumb.jpg",
+      title: "BeachVolleybal",
+      category: "Fotografie",
+      image: "/projects/volley/img1.webp",
     }
   ];
 

@@ -1,125 +1,173 @@
 "use client"
 
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useMemo } from "react"
 import Link from "next/link"
 import Typewriter from 'typewriter-effect'
+import { motion, useSpring, useMotionValue, useTransform, MotionValue } from 'framer-motion'
+
+// 1. FLOATING IMAGE COMPONENT
+const FloatingImage = ({ img, mouseX, mouseY }: { img: any, mouseX: MotionValue<number>, mouseY: MotionValue<number> }) => {
+  const springConfig = { damping: 40, stiffness: 100 };
+  const x = useTransform(mouseX, [0, 2000], [img.speed, -img.speed]);
+  const y = useTransform(mouseY, [0, 1200], [img.speed, -img.speed]);
+  const smoothX = useSpring(x, springConfig);
+  const smoothY = useSpring(y, springConfig);
+
+  return (
+    <motion.div
+      style={{
+        top: img.top,
+        left: img.left,
+        x: smoothX,
+        y: smoothY,
+        opacity: 0.3
+      }}
+      className={`absolute ${img.size} rounded-[1.5rem] md:rounded-[2rem] overflow-hidden shadow-sm animate-slow-float pointer-events-none z-0`}
+    >
+      <img src={img.src} alt="" className="w-full h-full object-cover grayscale brightness-110" />
+    </motion.div>
+  );
+};
 
 export default function HomePage() {
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
-  const [isHovering, setIsHovering] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const [isHovering, setIsHovering] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
-  const floatingImages = [
-    { id: 1, src: "/home/foto1.webp", top: "10%", left: "8%", size: "w-56 h-72", speed: 0.015, delay: "0s" },
-    { id: 2, src: "/home/foto2.webp", top: "55%", left: "5%", size: "w-72 h-48", speed: -0.02, delay: "1.5s" },
-    { id: 3, src: "/home/foto3.webp", top: "15%", left: "72%", size: "w-64 h-80", speed: 0.01, delay: "0.5s" },
-    { id: 4, src: "/home/foto4.webp", top: "62%", left: "78%", size: "w-48 h-64", speed: -0.015, delay: "2s" },
-  ];
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+
+  const cursorX = useSpring(mouseX, { damping: 35, stiffness: 400 });
+  const cursorY = useSpring(mouseY, { damping: 35, stiffness: 400 });
+
+  const floatingImages = useMemo(() => [
+    { id: 1, src: "/home/foto1.webp", top: "12%", left: "8%", size: "w-24 h-36 md:w-48 md:h-64", speed: 30 },
+    { id: 2, src: "/home/foto2.webp", top: "75%", left: "5%", size: "w-32 h-24 md:w-64 md:h-44", speed: -25 },
+    { id: 3, src: "/home/foto3.webp", top: "15%", left: "75%", size: "w-24 h-40 md:w-56 md:h-72", speed: 25 },
+    { id: 4, src: "/home/foto4.webp", top: "78%", left: "72%", size: "w-20 h-32 md:w-44 md:h-60", speed: -30 },
+  ], []);
 
   useEffect(() => {
     setMounted(true);
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+
     const handleMouseMove = (e: MouseEvent) => {
-      setMousePos({ x: e.clientX, y: e.clientY });
+      mouseX.set(e.clientX);
+      mouseY.set(e.clientY);
     };
     window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, []);
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener('resize', checkMobile);
+    };
+  }, [mouseX, mouseY]);
 
-  if (!mounted) return <div className="min-h-screen bg-white" />;
+  if (!mounted) return <div className="h-screen bg-white" />;
 
   return (
-    <main className="min-h-screen bg-white text-black overflow-hidden relative cursor-none">
+    <main className={`h-[100dvh] w-full bg-white text-black overflow-hidden relative flex flex-col justify-center items-center select-none ${!isMobile ? 'cursor-none' : ''}`}>
       
-      {/* Verbeterde CSS Animatie: Zweven + Lichtjes draaien */}
-      <style jsx>{`
-        @keyframes floatAndRotate {
-          0% { transform: translateY(0px) rotate(0deg); }
-          33% { transform: translateY(-15px) rotate(1deg); }
-          66% { transform: translateY(5px) rotate(-1deg); }
-          100% { transform: translateY(0px) rotate(0deg); }
+      <style jsx global>{`
+        @keyframes float {
+          0%, 100% { transform: translateY(0px); }
+          50% { transform: translateY(-10px); }
         }
-        .animate-float-custom {
-          animation: floatAndRotate 8s ease-in-out infinite;
+        .animate-slow-float {
+          animation: float 7s ease-in-out infinite;
+        }
+        /* Zorg dat de typewriter cursor ook de juiste kleur heeft */
+        .Typewriter__cursor {
+          color: #36558F;
         }
       `}</style>
 
-      {/* 1. AUTOMATISCH ZWEVENDE FOTO'S (25% Opacity) */}
-      <div className="absolute inset-0 z-0 pointer-events-none">
+      {/* HEADER UI */}
+      <div className="absolute top-0 inset-x-0 z-50 p-6 md:p-10 flex justify-between items-start text-[8px] md:text-[10px] font-black uppercase tracking-[0.3em] text-zinc-300">
+        <div className="flex items-center gap-2">
+          <span className="w-1.5 h-1.5 bg-blue-600 rounded-full animate-pulse" />
+          DESIGNER & PHOTOGRAPHER
+        </div>
+        <div className="text-right">ANTWERP // 2026</div>
+      </div>
+
+      {/* FLOATING IMAGES */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
         {floatingImages.map((img) => (
-          <div
-            key={img.id}
-            className={`absolute ${img.size} rounded-2xl overflow-hidden shadow-2xl opacity-25 animate-float-custom`}
-            style={{
-              top: img.top,
-              left: img.left,
-              animationDelay: img.delay,
-              // Muis-parallax effect
-              transform: `translate3d(${mousePos.x * img.speed}px, ${mousePos.y * img.speed}px, 0)`,
-              transition: 'transform 0.2s ease-out'
-            }}
-          >
-            <img 
-              src={img.src} 
-              alt="Portfolio preview" 
-              className="w-full h-full object-cover"
-            />
-          </div>
+          <FloatingImage key={img.id} img={img} mouseX={mouseX} mouseY={mouseY} />
         ))}
       </div>
 
-      {/* 2. INVERTED CURSOR */}
-      <div 
-        className="fixed top-0 left-0 w-12 h-12 rounded-full pointer-events-none z-9999 transition-transform duration-100 ease-out mix-blend-difference bg-white"
-        style={{
-          transform: `translate3d(${mousePos.x - 24}px, ${mousePos.y - 24}px, 0) scale(${isHovering ? 2.5 : 1})`,
-        }}
-      />
+      {/* CUSTOM CURSOR */}
+      {!isMobile && (
+        <motion.div 
+          className="fixed top-0 left-0 w-8 h-8 rounded-full pointer-events-none z-10 mix-blend-difference bg-white"
+          style={{
+            x: cursorX,
+            y: cursorY,
+            translateX: "-50%",
+            translateY: "-50%",
+            scale: isHovering ? 5 : 1,
+          }}
+        />
+      )}
 
-      {/* 3. HERO CONTENT */}
-      <section className="relative z-10 flex flex-col items-center justify-center min-h-screen px-6 text-center">
+      {/* MAIN CONTENT AREA */}
+      <section className="relative z-20 text-center flex flex-col items-center px-6">
         <div 
-          className="mb-8"
+          className="mb-4 md:mb-6"
           onMouseEnter={() => setIsHovering(true)}
           onMouseLeave={() => setIsHovering(false)}
         >
-          <h1 className="text-7xl md:text-[11rem] font-bold tracking-tighter leading-[0.85] uppercase select-none">
-            <span className="text-[#36558F] block">Tibo</span>
-            <span className="text-[#36558F] block min-h-[1em]"> 
+          {/* Titel iets kleiner voor betere balans (14vw ipv 16vw) */}
+          <h1 className="text-[14vw] md:text-[8rem] font-black tracking-tighter leading-[0.9] uppercase text-[#36558F]">
+            <span className="block">Tibo</span>
+            <span className="block min-h-[1.1em]"> 
               <Typewriter
                 options={{
-                  strings: ['Vermeersch', 'Vormgever', 'Fotograaf', 'Designer'],
-                  autoStart: true,
-                  loop: true,
-                  cursor: '_',
-                  delay: 80,
+                  strings: ['Fotograaf', 'Vormgever', 'Designer'],
+                  autoStart: true, 
+                  loop: true, 
+                  cursor: '', 
+                  delay: 70, 
                   deleteSpeed: 40,
+                  wrapperClassName: "text-[#36558F]" // Kleur exact hetzelfde als 'Tibo'
                 }}
               />
             </span>
           </h1>
         </div>
 
-        <p 
-          className="max-w-xl text-zinc-600 text-lg md:text-xl font-light leading-relaxed mb-12 italic pl-6 mx-auto select-none bg-white/40 backdrop-blur-md px-4 py-2 rounded-xl"
-          onMouseEnter={() => setIsHovering(true)}
-          onMouseLeave={() => setIsHovering(false)}
-        >
+        <p className="max-w-[260px] md:max-w-xl text-zinc-400 text-xs md:text-lg font-medium italic mb-10 leading-relaxed">
           Grafisch Vormgever met <br className="hidden md:block" />
-          een passie voor fotografie
+          een passie voor fotografie.
         </p>
 
         <Link 
           href="/project" 
-          className="px-10 py-4 border-2 border-[#36558F] text-[#36558F] rounded-full font-bold transition-all hover:bg-[#36558F] hover:text-white active:scale-95 relative z-20 bg-white/80 backdrop-blur-sm"
+          className="group px-10 py-4 md:px-12 md:py-5 border border-zinc-200 text-[#36558F] rounded-full text-[9px] md:text-[10px] font-black tracking-[0.4em] uppercase transition-all duration-500 hover:bg-[#36558F] hover:text-white flex items-center gap-6 relative overflow-hidden bg-white"
           onMouseEnter={() => setIsHovering(true)}
           onMouseLeave={() => setIsHovering(false)}
         >
-          BEKIJK PORTFOLIO
+          <span className="relative z-10">Ontdek Portfolio</span>
+          <div className="w-6 md:w-8 h-px bg-[#36558F] group-hover:bg-white transition-all duration-500 relative z-10" />
+          <div className="absolute inset-0 bg-[#36558F] translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out z-0" />
         </Link>
       </section>
 
-      {/* 4. SUBTIELE NOISE TEXTUUR */}
-      <div className="pointer-events-none fixed inset-0 z-50 opacity-[0.03] mix-blend-multiply" 
+      {/* FOOTER UI */}
+      <div className="absolute bottom-0 inset-x-0 z-50 p-6 md:p-10 flex flex-col md:flex-row justify-between items-center gap-4 text-[7px] md:text-[9px] font-bold uppercase tracking-[0.2em] text-zinc-300">
+        <div className="hidden md:block">© T. VERMEERSCH</div>
+        <div className="flex gap-6">
+          <span className="hover:text-zinc-500 cursor-pointer transition-colors">Instagram</span>
+          <span className="hover:text-zinc-500 cursor-pointer transition-colors">LinkedIn</span>
+        </div>
+        <div>VISUAL DESIGN // 2026</div>
+      </div>
+
+      {/* NOISE OVERLAY */}
+      <div className="pointer-events-none fixed inset-0 z-[60] opacity-[0.02] mix-blend-multiply" 
            style={{ backgroundImage: `url("https://grainy-gradients.vercel.app/noise.svg")` }}></div>
     </main>
   )
