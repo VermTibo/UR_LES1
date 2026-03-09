@@ -42,7 +42,7 @@ export default function ContactPage() {
               </h3>
               <a 
                 href="mailto:tibovermeersch0609@gmail.com" 
-                className="text-lg md:text-2xl font-bold hover:text-[#36558F] transition-colors break-words"
+                className="text-lg md:text-2xl font-bold hover:text-[#36558F] transition-colors warp-break-words"
               >
                 tibovermeersch0609@gmail.com
               </a>

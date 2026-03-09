@@ -75,7 +75,7 @@ export default function ProjectTemplateEditor() {
     <div className={`w-full min-h-screen transition-all duration-1000 bg-white text-zinc-900 ${isAlt ? 'font-serif' : 'font-sans'}`}>
       
       {/* 1. LAYOUT ENQUETE KNOP (Desktop Sidebar Tab) */}
-      <motion.div initial={{ x: 100 }} animate={{ x: 0 }} className="fixed right-0 top-1/2 -translate-y-1/2 z-[120] hidden lg:flex items-center">
+      <motion.div initial={{ x: 100 }} animate={{ x: 0 }} className="fixed right-0 top-1/2 -translate-y-1/2 z-120 hidden lg:flex items-center">
         <a href={surveyLinkLayout} target="_blank" className={`flex items-center gap-4 py-8 px-4 transition-all duration-500 group border-l-4 shadow-2xl ${isAlt ? 'bg-orange-600 text-white border-white' : 'bg-white text-[#36558F] border-[#36558F] rounded-l-[2rem]'}`} style={{ writingMode: 'vertical-rl', textOrientation: 'mixed' }}>
           <span className="text-[10px] font-black uppercase tracking-[0.3em] rotate-180">Beoordeel Layout</span>
           <FiTarget className="rotate-90 group-hover:scale-125 transition-transform" size={20} />
@@ -94,7 +94,7 @@ export default function ProjectTemplateEditor() {
       </div>
 
       {/* 3. EDITOR TOGGLE (Responsive Position) */}
-      <div className="fixed bottom-6 right-6 md:bottom-auto md:top-8 md:right-8 z-[150]">
+      <div className="fixed bottom-6 right-6 md:bottom-auto md:top-8 md:right-8 z-150">
         <button onClick={() => setIsEditing(!isEditing)} className={`flex items-center gap-3 px-5 py-3 md:px-6 md:py-4 rounded-full shadow-2xl transition-all font-black uppercase text-[9px] md:text-[10px] tracking-widest ${isEditing ? 'bg-orange-500 text-white' : 'bg-zinc-950 text-white hover:scale-105'}`}>
           {isEditing ? <><FiCheck /> Opslaan</> : <><FiSettings /> Editor</>}
         </button>
@@ -107,7 +107,7 @@ export default function ProjectTemplateEditor() {
             initial={{ x: "100%" }} 
             animate={{ x: 0 }} 
             exit={{ x: "100%" }} 
-            className="fixed inset-y-0 right-0 w-full md:w-96 bg-white z-[140] md:m-6 md:rounded-[2.5rem] shadow-2xl flex flex-col border-l md:border border-zinc-200"
+            className="fixed inset-y-0 right-0 w-full md:w-96 bg-white z-140 md:m-6 md:rounded-[2.5rem] shadow-2xl flex flex-col border-l md:border border-zinc-200"
           >
             <div className="p-6 md:p-8 border-b border-zinc-100 flex justify-between items-center bg-white sticky top-0 z-10 md:rounded-t-[2.5rem]">
               <h2 className="font-black uppercase text-[10px] tracking-widest">Design Studio</h2>
@@ -157,10 +157,10 @@ export default function ProjectTemplateEditor() {
       </AnimatePresence>
 
       {/* 5. MAIN PREVIEW */}
-      <main className={`transition-all duration-700 ${isEditing ? 'lg:pr-[400px]' : ''}`}>
+      <main className={`transition-all duration-700 ${isEditing ? 'lg:pr-100' : ''}`}>
         <section className="max-w-6xl mx-auto px-6 md:px-8 pt-12 md:pt-16 pb-8 md:pb-12">
           <div className="mb-6">
-            <motion.h1 layout className={`text-[14vw] md:text-[8.5vw] leading-[0.85] font-black uppercase tracking-tighter text-transparent bg-clip-text bg-gradient-to-r ${isAlt ? 'from-orange-500 to-rose-500 italic' : 'from-blue-600 to-cyan-600'}`}>
+            <motion.h1 layout className={`text-[14vw] md:text-[8.5vw] leading-[0.85] font-black uppercase tracking-tighter text-transparent bg-clip-text bg-linear-to-r ${isAlt ? 'from-orange-500 to-rose-500 italic' : 'from-blue-600 to-cyan-600'}`}>
               {pageData.title}
             </motion.h1>
           </div>
@@ -222,7 +222,7 @@ export default function ProjectTemplateEditor() {
       {/* LIGHTBOX */}
       <AnimatePresence>
         {selectedImg !== null && (
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-[200] flex items-center justify-center bg-white/95 backdrop-blur-2xl p-4 md:p-6" onClick={() => setSelectedImg(null)}>
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-200 flex items-center justify-center bg-white/95 backdrop-blur-2xl p-4 md:p-6" onClick={() => setSelectedImg(null)}>
             <button className="absolute top-6 right-6 md:top-10 md:right-10 text-black hover:rotate-90 transition-transform"><FiX size={32} /></button>
             <motion.img initial={{ scale: 0.9, y: 20 }} animate={{ scale: 1, y: 0 }} src={currentItem?.img} className={`max-h-[70vh] md:max-h-[80vh] w-auto shadow-2xl ${isAlt ? 'rounded-none p-1 bg-orange-500' : 'rounded-[1.5rem] md:rounded-[2rem]'}`} />
           </motion.div>
